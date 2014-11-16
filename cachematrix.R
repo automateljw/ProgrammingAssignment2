@@ -25,7 +25,7 @@ makeCacheMatrix <- function(mat = matrix()) {
 
 ## cacheSolve: calculates the inverse of the special "matrix" created by makeCacheMatrix
 ## Usage:
-##      
+##      mat.inverse <- cacheSolve(X)  # solve X's inverse matrix
 
 cacheSolve <- function(mat, ...) {
         ## Return a matrix that is the inverse of 'em'
