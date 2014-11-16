@@ -1,33 +1,41 @@
 ## Here are a pair of functions: makeCacheMatrix() and cacheSolve()
 
 ## makeCacheMatrix: creates a special "matrix"
+## Usage:
+##      Y <- makeCacheMatrix(X) # X is a square invertible matrix
+##      Y$get()   # get Y matrix
+##      Y$set(Z)   # assign matrix Z to Y   
+##      Y$getinverse()  # get Y's inverse matrix
+##      Y$setinverse(Z)  # assign matrix Z to Y's inverse matrix
 
-makeCacheMatrix <- function(im = matrix()) {
-  inv <- NULL
-  set <- function(em) {
-    im <<- em
-    inv <<- NULL
+makeCacheMatrix <- function(mat = matrix()) {
+  inverse <- NULL
+  set <- function(tm) {
+    mat <<- tm
+    inverse <<- NULL
   }
-  get <- function() im
-  setinv <- function(einv) inv <<- einv
-  getinv <- function() inv
+  get <- function() mat
+  setinverse <- function(tm) inverse <<- tm
+  getinverse <- function() inverse
   list(set = set, get = get,
-       setinv = setinv,
-       getinv = getinv)
+       setinverse = setinverse,
+       getinverse = getinverse)
 }
 
 
-## cacheSolve: calculates the inverse of the special "matrix"
+## cacheSolve: calculates the inverse of the special "matrix" created by makeCacheMatrix
+## Usage:
+##      
 
-cacheSolve <- function(em, ...) {
+cacheSolve <- function(mat, ...) {
         ## Return a matrix that is the inverse of 'em'
-  im <- em$getinv()
-  if(!is.null(im)) {
+  inverse <- mat$getinv()
+  if(!is.null(inverse)) {
     message("getting cached data")
-    return(em)
+    return(inverse)
   }
-  data <- em$get()
-  im <- solve(data, ...)
-  em$setinv(im)
-  im
+  data <- mat$get()
+  inverse <- solve(data, ...)
+  mat$setinverse(inverse)
+  inverse
 }
